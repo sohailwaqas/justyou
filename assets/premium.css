@@ -1,0 +1,33 @@
+/* handy - subtle "premium" accents for ONE tool: Claims Generator.
+   Three places only: the sidebar item, its Home card, its page header. Loaded by app.py after style.css.
+   Palette: navy / white / orange #FF9F43 used only as a hairline, a dot or a ring (never as text).
+   Selectors that target Streamlit internals (data-testid) are version-sensitive: re-check after upgrading Streamlit. */
+
+/* ---- 1. sidebar item: 2px orange edge, faint tint, tiny dot ---- */
+a[data-testid="stSidebarNavLink"][href$="claims-generator"],
+[data-testid="stSidebarNav"] a[href$="claims-generator"] {
+  position: relative;
+  box-shadow: inset 2px 0 0 #FF9F43;
+  background: rgba(255, 255, 255, .05);
+}
+a[data-testid="stSidebarNavLink"][href$="claims-generator"]::after,
+[data-testid="stSidebarNav"] a[href$="claims-generator"]::after {
+  content: ""; position: absolute; right: 14px; top: 50%; width: 6px; height: 6px; margin-top: -3px;
+  border-radius: 50%; background: #FF9F43;
+}
+
+/* ---- 2. Home card: orange hairline on top, small outlined PREMIUM tag, ringed icon ---- */
+.st-key-hy-card-tool-claims-generator { position: relative; border-top: 2px solid #FF9F43 !important; }
+.st-key-hy-card-tool-claims-generator::before {
+  content: "PREMIUM"; position: absolute; top: 14px; right: 16px; padding: 2px 9px; border-radius: 999px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .16em; color: var(--hy-muted, #486080);
+  background: #fff; border: 1px solid rgba(15, 46, 87, .18);
+}
+.st-key-hy-card-tool-claims-generator .hy-tool-icon { box-shadow: 0 0 0 2px rgba(255, 159, 67, .55); }
+
+/* ---- 3. page header (Claims Generator page only, via its container key) ---- */
+.st-key-claims-header .hy-page-header { position: relative; padding-bottom: 14px; }
+.st-key-claims-header .hy-page-header::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 56px; height: 2px; border-radius: 2px; background: #FF9F43;
+}
+.st-key-claims-header .hy-page-icon { box-shadow: 0 0 0 2px rgba(255, 159, 67, .55); }

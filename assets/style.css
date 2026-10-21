@@ -1,0 +1,311 @@
+/* =====================================================================
+   handy - global stylesheet
+   Palette (60-30-10):  60% #F4F7FC canvas | 30% #0F2E57 navy | 10% #FF9F43 accent
+   Rule: orange is used for fills, borders, icons, underlines - NEVER as text
+   on a light background. Text on orange is always navy.
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* colour tokens */
+  --hy-bg: #F4F7FC;
+  --hy-navy: #0F2E57;
+  --hy-orange: #FF9F43;
+  --hy-white: #FFFFFF;
+  --hy-muted: #486080;                       /* navy tint, 6:1 on canvas */
+  --hy-border: rgba(15, 46, 87, 0.12);
+  --hy-border-strong: rgba(15, 46, 87, 0.28);
+  --hy-tint: rgba(15, 46, 87, 0.06);
+  --hy-ring: rgba(255, 159, 67, 0.40);
+  /* spacing scale (8px) */
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 40px; --s6: 48px;
+  /* shape + depth */
+  --r-md: 12px; --r-lg: 16px;
+  --shadow: 0 1px 2px rgba(15, 46, 87, 0.06), 0 6px 20px rgba(15, 46, 87, 0.07);
+  --shadow-hover: 0 2px 4px rgba(15, 46, 87, 0.08), 0 12px 28px rgba(15, 46, 87, 0.12);
+}
+
+/* ---------- base typography (icons excluded: no span override) ---------- */
+.stApp, .stApp p, .stApp label, .stApp li, .stApp a, .stApp small,
+.stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+.stApp input, .stApp textarea, .stApp button, .stApp td, .stApp th,
+[data-testid="stMarkdownContainer"] {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+}
+.stApp { background: var(--hy-bg); color: var(--hy-navy); }
+.stApp h1, .stApp h2, .stApp h3, .stApp h4 { color: var(--hy-navy); letter-spacing: -0.02em; }
+.stApp h1 { font-weight: 700; font-size: 2rem; }
+.stApp h2 { font-weight: 650; font-size: 1.4rem; }
+.stApp h3 { font-weight: 600; font-size: 1.15rem; }
+.stApp [data-testid="stCaptionContainer"] { color: var(--hy-muted); }
+.stApp a { color: var(--hy-navy); text-decoration-color: var(--hy-orange); text-underline-offset: 3px; }
+.stApp a:hover { text-decoration-thickness: 2px; }
+hr { border-color: var(--hy-border) !important; }
+
+/* ---------- layout ---------- */
+[data-testid="stMainBlockContainer"], .block-container {
+  max-width: 1120px;
+  padding: var(--s5) var(--s4) var(--s6);
+}
+@media (max-width: 640px) {
+  [data-testid="stMainBlockContainer"], .block-container { padding: var(--s3) var(--s2) var(--s5); }
+}
+
+/* ---------- hide Streamlit clutter (header stays usable) ---------- */
+#MainMenu, footer, [data-testid="stMainMenu"], [data-testid="stAppDeployButton"],
+.stAppDeployButton, [data-testid="stDecoration"], [data-testid="stStatusWidget"] { display: none !important; }
+[data-testid="stHeader"] { background: transparent; }
+
+/* ---------- sidebar (navy, 30%) ---------- */
+[data-testid="stSidebar"] { background: var(--hy-navy) !important; border-right: none; }
+[data-testid="stSidebar"] [data-testid="stSidebarHeader"] { padding: var(--s3) var(--s2) var(--s2); height: auto; }
+[data-testid="stSidebar"] [data-testid="stLogo"] { height: 4.4rem; max-width: 100%; }
+[data-testid="stSidebar"] [data-testid="stNavSectionHeader"],
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] span[class*="Header"] {
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+}
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"] {
+  color: #FFFFFF !important; border-radius: var(--r-md);
+  margin: 2px var(--s1); padding: 10px 12px; font-weight: 500; text-decoration: none;
+  transition: background 0.15s ease;
+}
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"]:hover { background: rgba(255, 255, 255, 0.09); }
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"][aria-current="page"] {
+  background: rgba(255, 159, 67, 0.18); font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--hy-orange);
+}
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"] span { color: #FFFFFF !important; }
+.hy-sidebar-foot {
+  margin: var(--s4) var(--s2) var(--s2); padding-top: var(--s2);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.72); font-size: 0.78rem; line-height: 1.5;
+}
+.hy-sidebar-foot b { color: #FFFFFF; font-weight: 600; }
+
+/* sidebar collapse "<<" button: white on navy, always visible (Streamlit hides it until hover by default) */
+[data-testid="stSidebarHeader"] { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+[data-testid="stSidebarHeader"] [data-testid="stLogo"] { max-width: calc(100% - 3rem); object-fit: contain; object-position: left center; }
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarCollapsedControl"] { opacity: 1 !important; visibility: visible !important; }
+[data-testid="stSidebarCollapseButton"] button { color: #FFFFFF !important; background: rgba(255, 255, 255, 0.10) !important; border-radius: var(--r-md); }
+[data-testid="stSidebarCollapseButton"] button:hover { background: rgba(255, 255, 255, 0.22) !important; }
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarCollapseButton"] [data-testid="stIconMaterial"],
+[data-testid="stSidebarCollapseButton"] span { color: #FFFFFF !important; fill: #FFFFFF !important; }
+/* the "open sidebar >>" button (shown on the light canvas when collapsed): navy */
+[data-testid="stExpandSidebarButton"], [data-testid="stExpandSidebarButton"] * { color: #0F2E57 !important; opacity: 1 !important; visibility: visible !important; }
+
+/* very subtle "Trial version" note, pinned to the bottom of the sidebar (hidden when it is collapsed) */
+.hy-trial { position: fixed; bottom: 10px; left: 16px; font-size: 0.83rem; letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.38); pointer-events: none; user-select: none; }
+[data-testid="stSidebar"][aria-expanded="false"] .hy-trial { display: none; }
+
+/* ---------- buttons ---------- */
+[data-testid="stBaseButton-primary"], [data-testid="stBaseButton-secondary"],
+button[kind="primary"], button[kind="secondary"] {
+  border-radius: var(--r-md) !important; font-weight: 600 !important; min-height: 44px;
+  transition: box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease;
+}
+[data-testid="stBaseButton-primary"], button[kind="primary"] {
+  background: var(--hy-orange) !important; border: 1px solid var(--hy-orange) !important;
+  color: var(--hy-navy) !important;
+}
+[data-testid="stBaseButton-primary"] p, [data-testid="stBaseButton-primary"] span,
+button[kind="primary"] p, button[kind="primary"] span { color: var(--hy-navy) !important; font-weight: 600; }
+[data-testid="stBaseButton-primary"]:hover, button[kind="primary"]:hover {
+  filter: brightness(0.96); box-shadow: 0 4px 14px rgba(255, 159, 67, 0.45);
+}
+[data-testid="stBaseButton-secondary"], button[kind="secondary"] {
+  background: var(--hy-white) !important; border: 1.5px solid var(--hy-navy) !important;
+  color: var(--hy-navy) !important;
+}
+[data-testid="stBaseButton-secondary"] p, button[kind="secondary"] p { color: var(--hy-navy) !important; }
+[data-testid="stBaseButton-secondary"]:hover, button[kind="secondary"]:hover { background: var(--hy-tint) !important; }
+button:focus-visible { outline: 3px solid var(--hy-ring) !important; outline-offset: 2px; }
+
+/* ---------- inputs: clear orange focus ring ---------- */
+[data-baseweb="input"], [data-baseweb="base-input"], [data-baseweb="textarea"],
+[data-baseweb="select"] > div {
+  border-radius: var(--r-md) !important; border-color: var(--hy-border-strong) !important;
+  background-color: var(--hy-white) !important;
+}
+[data-baseweb="input"]:focus-within, [data-baseweb="textarea"]:focus-within,
+[data-baseweb="select"] > div:focus-within {
+  border-color: var(--hy-orange) !important; box-shadow: 0 0 0 3px var(--hy-ring) !important;
+}
+[data-testid="stWidgetLabel"] p { font-weight: 600; color: var(--hy-navy); }
+
+/* ---------- file uploader ---------- */
+[data-testid="stFileUploaderDropzone"] {
+  background: var(--hy-white); border: 1.5px dashed var(--hy-border-strong);
+  border-radius: var(--r-lg); padding: var(--s3);
+}
+[data-testid="stFileUploaderDropzone"]:hover { border-color: var(--hy-orange); }
+
+/* ---------- tabs ---------- */
+/* tab labels: always full navy (Streamlit's inner <p>/<span> colour otherwise makes idle tabs invisible) */
+button[data-baseweb="tab"],
+button[data-baseweb="tab"] p, button[data-baseweb="tab"] span, button[data-baseweb="tab"] div {
+  color: var(--hy-navy) !important; opacity: 1 !important; font-weight: 500;
+}
+button[data-baseweb="tab"][aria-selected="true"],
+button[data-baseweb="tab"][aria-selected="true"] p { font-weight: 700; }
+button[data-baseweb="tab"]:hover { background: rgba(255, 159, 67, 0.14) !important; border-radius: var(--r-md) var(--r-md) 0 0; }
+[data-baseweb="tab-highlight"] { background-color: var(--hy-orange) !important; height: 3px !important; }
+[data-baseweb="tab-border"] { background-color: var(--hy-border) !important; }
+
+/* ---------- metrics (Streamlit st.metric) ---------- */
+[data-testid="stMetric"] {
+  background: var(--hy-white); border: 1px solid var(--hy-border);
+  border-left: 4px solid var(--hy-orange);
+  border-radius: var(--r-lg); padding: var(--s2) var(--s3); box-shadow: var(--shadow);
+}
+[data-testid="stMetricLabel"] p { color: var(--hy-muted); font-weight: 500; }
+[data-testid="stMetricValue"] { color: var(--hy-navy); font-weight: 700; }
+
+/* ---------- expander, alerts, tables ---------- */
+[data-testid="stExpander"] {
+  background: var(--hy-white); border: 1px solid var(--hy-border) !important;
+  border-radius: var(--r-lg) !important; box-shadow: var(--shadow);
+}
+[data-testid="stExpander"] summary { font-weight: 600; }
+[data-testid="stAlert"] { border-radius: var(--r-md); border: 1px solid var(--hy-border); }
+[data-testid="stDataFrame"], [data-testid="stDataEditor"] {
+  border: 1px solid var(--hy-border); border-radius: var(--r-md); overflow: hidden; background: var(--hy-white);
+}
+[data-testid="stProgress"] > div > div > div { background-color: var(--hy-orange) !important; }
+[data-testid="stToast"] { border-radius: var(--r-md); border-left: 4px solid var(--hy-orange); }
+
+/* =====================================================================
+   Component classes used by utils/ui.py  (pages may use these names)
+   ===================================================================== */
+
+/* card: st.container(key="hy-card-...") */
+[class*="st-key-hy-card"] {
+  background: var(--hy-white); border: 1px solid var(--hy-border);
+  border-radius: var(--r-lg); padding: var(--s3); box-shadow: var(--shadow);
+}
+[class*="st-key-hy-card-tool"] { transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease; }
+[class*="st-key-hy-card-tool"]:hover {
+  box-shadow: var(--shadow-hover); border-color: rgba(255, 159, 67, 0.7); transform: translateY(-2px);
+}
+
+/* page header */
+.hy-page-header { display: flex; gap: var(--s2); align-items: center; margin: 0 0 var(--s4); }
+.hy-page-icon {
+  flex: none; width: 56px; height: 56px; border-radius: var(--r-lg);
+  background: var(--hy-navy); color: var(--hy-orange);
+  display: flex; align-items: center; justify-content: center;
+}
+.hy-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hy-muted); }
+.hy-page-header h1 { margin: 2px 0 4px; padding: 0; line-height: 1.15; }
+.hy-page-header p { margin: 0; color: var(--hy-muted); font-size: 1rem; max-width: 720px; }
+
+/* section header with step badge */
+.hy-section { display: flex; gap: 12px; align-items: flex-start; margin: var(--s4) 0 var(--s2); }
+.hy-step {
+  flex: none; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--hy-navy); color: #FFFFFF; font-weight: 700; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.55);
+}
+.hy-section h2 { margin: 0; padding: 0; font-size: 1.2rem; font-weight: 650; line-height: 32px; color: var(--hy-navy); }
+.hy-section p { margin: 2px 0 0; color: var(--hy-muted); font-size: 0.92rem; }
+
+/* hero (home) */
+.hy-hero {
+  background: var(--hy-navy); color: #FFFFFF; border-radius: 20px;
+  padding: var(--s6) var(--s5); margin-bottom: var(--s4); position: relative; overflow: hidden;
+  background-image: radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.10), transparent 45%);
+}
+.hy-hero::after {
+  content: ""; position: absolute; left: var(--s5); bottom: 0; width: 72px; height: 5px;
+  background: var(--hy-orange); border-radius: 5px 5px 0 0;
+}
+.hy-hero { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
+.hy-hero-text { position: relative; z-index: 1; }
+.hy-hero-logo { flex: none; height: 190px; width: auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); }
+@media (max-width: 760px) { .hy-hero-logo { display: none; } }
+.hy-hero .hy-eyebrow { color: rgba(255, 255, 255, 0.78); }
+.hy-hero h1 { color: #FFFFFF !important; font-size: 2.4rem !important; margin: 8px 0 var(--s1); padding: 0; line-height: 1.12; }
+.hy-hero p { color: rgba(255, 255, 255, 0.86); font-size: 1.05rem; max-width: 600px; margin: 0; }
+@media (max-width: 640px) { .hy-hero { padding: var(--s4) var(--s3); } .hy-hero h1 { font-size: 1.8rem !important; } }
+
+/* tool card internals */
+.hy-tool-icon {
+  width: 52px; height: 52px; border-radius: var(--r-md); background: var(--hy-navy); color: var(--hy-orange);
+  display: flex; align-items: center; justify-content: center; margin-bottom: var(--s2);
+}
+.hy-tool-title { font-size: 1.15rem; font-weight: 650; color: var(--hy-navy); margin: 0 0 6px; }
+.hy-tool-desc { color: var(--hy-muted); font-size: 0.95rem; line-height: 1.55; margin: 0 0 var(--s2); min-height: 3.1em; }
+.hy-chip {
+  display: inline-block; font-size: 0.74rem; font-weight: 600; color: var(--hy-navy);
+  background: var(--hy-tint); border-radius: 999px; padding: 3px 10px; margin: 0 6px 6px 0;
+}
+
+/* metric card (custom) */
+.hy-metric {
+  background: var(--hy-white); border: 1px solid var(--hy-border); border-left: 4px solid var(--hy-orange);
+  border-radius: var(--r-lg); padding: var(--s2) var(--s3); box-shadow: var(--shadow); height: 100%;
+}
+.hy-metric .l { font-size: 0.82rem; font-weight: 500; color: var(--hy-muted); }
+.hy-metric .v { font-size: 1.7rem; font-weight: 700; color: var(--hy-navy); line-height: 1.25; }
+.hy-metric .c { font-size: 0.8rem; color: var(--hy-muted); }
+
+/* empty state */
+.hy-empty {
+  text-align: center; padding: var(--s5) var(--s3); background: var(--hy-white);
+  border: 1.5px dashed var(--hy-border-strong); border-radius: var(--r-lg);
+}
+.hy-empty .i { color: var(--hy-orange); margin-bottom: var(--s1); }
+.hy-empty .t { font-weight: 650; font-size: 1.05rem; color: var(--hy-navy); }
+.hy-empty .m { color: var(--hy-muted); font-size: 0.92rem; margin-top: 4px; }
+
+/* =====================================================================
+   Theme fallback: forces the 60-30-10 palette on Streamlit widgets even when
+   .streamlit/config.toml is missing from the deployment (Streamlit then shows its
+   default red / grey). Version-sensitive selectors (data-baseweb / data-testid).
+   ===================================================================== */
+.stApp { --primary-color: #FF9F43; color: var(--hy-navy); }
+::selection { background: rgba(255, 159, 67, 0.35); color: var(--hy-navy); }
+[data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li { color: var(--hy-navy); }
+
+/* checkbox: white box, navy border; ticked = orange fill */
+label[data-baseweb="checkbox"] > span:first-of-type {
+  background-color: var(--hy-white) !important; border-color: var(--hy-border-strong) !important;
+}
+label[data-baseweb="checkbox"]:has(input:checked) > span:first-of-type {
+  background-color: var(--hy-orange) !important; border-color: var(--hy-orange) !important;
+}
+label[data-baseweb="checkbox"]:has(input:checked) > span:first-of-type svg,
+label[data-baseweb="checkbox"]:has(input:checked) > span:first-of-type svg path { color: var(--hy-navy) !important; fill: var(--hy-navy) !important; }
+label[data-baseweb="checkbox"] > div:last-child, label[data-baseweb="checkbox"] p { color: var(--hy-navy) !important; }
+
+/* radio */
+label[data-baseweb="radio"] > div:first-child { border-color: var(--hy-border-strong) !important; background-color: var(--hy-white) !important; }
+label[data-baseweb="radio"]:has(input:checked) > div:first-child { background-color: var(--hy-orange) !important; border-color: var(--hy-orange) !important; }
+
+/* multiselect tags + select highlights: navy tint instead of Streamlit's red */
+[data-baseweb="tag"] { background-color: var(--hy-tint) !important; border: 1px solid var(--hy-border-strong); border-radius: 8px !important; }
+[data-baseweb="tag"], [data-baseweb="tag"] span, [data-baseweb="tag"] svg { color: var(--hy-navy) !important; fill: var(--hy-navy) !important; }
+[data-baseweb="popover"] li[aria-selected="true"], [data-baseweb="menu"] li:hover { background-color: rgba(255, 159, 67, 0.16) !important; }
+[data-baseweb="popover"] li, [data-baseweb="popover"] li * { color: var(--hy-navy) !important; }
+
+/* inputs / selects / uploader: white surface, navy text, never Streamlit's grey */
+.stApp input, .stApp textarea { color: var(--hy-navy) !important; background-color: transparent !important; }
+.stApp input::placeholder, .stApp textarea::placeholder { color: var(--hy-muted) !important; opacity: 0.8; }
+[data-testid="stNumberInput"] button { background-color: var(--hy-white) !important; color: var(--hy-navy) !important; }
+[data-testid="stFileUploaderDropzone"] { background-color: var(--hy-white) !important; }
+[data-testid="stFileUploaderDropzone"] * { color: var(--hy-navy); }
+
+/* sliders / progress / spinner accents */
+[data-baseweb="slider"] div[role="slider"] { background-color: var(--hy-orange) !important; border-color: var(--hy-orange) !important; }
+[data-testid="stSpinner"] i, [data-testid="stSpinner"] svg { border-top-color: var(--hy-orange) !important; }
+
+/* expander headers + captions keep navy text */
+[data-testid="stExpander"] summary, [data-testid="stExpander"] summary * { color: var(--hy-navy) !important; }
+
+/* table header labels used by DA Maker's per-person rows */
+.hy-th { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--hy-muted); }
