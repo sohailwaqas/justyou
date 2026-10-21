@@ -1,0 +1,20 @@
+# handy - Streamlit theme (60-30-10: #F4F7FC / #0F2E57 / #FF9F43)
+[theme]
+base = "light"
+primaryColor = "#FF9F43"
+backgroundColor = "#F4F7FC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0F2E57"
+font = "sans-serif"
+
+[theme.sidebar]
+backgroundColor = "#0F2E57"
+secondaryBackgroundColor = "#163F73"
+textColor = "#FFFFFF"
+primaryColor = "#FF9F43"
+
+[server]
+maxUploadSize = 25          # MB, hard server-side cap
+
+[browser]
+gatherUsageStats = false
