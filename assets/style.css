@@ -309,3 +309,20 @@ label[data-baseweb="radio"]:has(input:checked) > div:first-child { background-co
 
 /* table header labels used by DA Maker's per-person rows */
 .hy-th { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--hy-muted); }
+
+/* ---------- sidebar text: always white on navy (must stay LAST so the generic navy text rules above never win) ---------- */
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"],
+[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"] *,
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a,
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a *,
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] [data-testid="stMarkdownContainer"] p {
+  color: #FFFFFF !important; text-decoration: none !important; opacity: 1 !important;
+}
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a svg,
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a [data-testid="stIconMaterial"] { color: #FFFFFF !important; fill: #FFFFFF !important; }
+/* section headers + any other sidebar markdown / labels */
+[data-testid="stSidebar"] [data-testid="stNavSectionHeader"], [data-testid="stSidebar"] [data-testid="stNavSectionHeader"] * { color: rgba(255, 255, 255, 0.6) !important; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p, [data-testid="stSidebar"] label p { color: #FFFFFF; }
+[data-testid="stSidebar"] .hy-sidebar-foot, [data-testid="stSidebar"] .hy-sidebar-foot * { color: rgba(255, 255, 255, 0.72); }
+[data-testid="stSidebar"] .hy-sidebar-foot b { color: #FFFFFF; }
+[data-testid="stSidebar"] .hy-trial { color: rgba(255, 255, 255, 0.38); }
